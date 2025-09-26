@@ -29,6 +29,15 @@ pipeline {
         }
       } 
     }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying with Docker Compose...'
+        bat 'docker compose down || ver > nul'
+        bat 'docker compose up -d --build'
+      }
+    }
+
     
   }
 }
