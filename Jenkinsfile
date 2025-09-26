@@ -20,5 +20,20 @@ pipeline {
         bat 'npm test --prefix server'
       }
     }
+
+    stage('Code Quality') {
+      steps {
+        echo 'Running SonarCloud analysis...'
+        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+          bat '''
+            npx sonar-scanner ^
+              -Dsonar.projectKey=anujtimsina55_SIT753-7.3HD ^
+              -Dsonar.organization=anujtimsina55 ^
+              -Dsonar.host.url=https://sonarcloud.io ^
+              -Dsonar.login=%SONAR_TOKEN%
+          '''
+        }
+      }
+}
   }
 }
