@@ -34,7 +34,6 @@ pipeline {
   steps {
     echo 'Deploying with Docker Compose...'
     bat 'docker compose down -v || ver > nul'
-    bat 'docker ps -q --filter "publish=4000" | for /f %i in (\'more\') do docker stop %i && docker rm %i'
     bat 'docker compose up -d --build'
   }
 }
